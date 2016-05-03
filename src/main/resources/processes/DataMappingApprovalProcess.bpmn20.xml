@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="DataMappingApprovalProcess" name="Data Mapping Approval Process" isExecutable="true">
+    <startEvent id="startEvent" name="Start"></startEvent>
+    <userTask id="submitDataMappingTask" name="Submit Data Mapping" activiti:candidateGroups="requester"></userTask>
+    <userTask id="approveDataMappingTask" name="Approve Data Mapping" activiti:candidateGroups="approver"></userTask>
+    <exclusiveGateway id="approveGateway" name="Approve?"></exclusiveGateway>
+    <endEvent id="endEvent" name="End"></endEvent>
+    
+    <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="submitDataMappingTask"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="submitDataMappingTask" targetRef="approveDataMappingTask"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="approveDataMappingTask" targetRef="approveGateway"></sequenceFlow>
+    <sequenceFlow id="rejectFlow" name="No" sourceRef="approveGateway" targetRef="submitDataMappingTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved=='false'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="approveFlow" name="Yes" sourceRef="approveGateway" targetRef="endEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved=='true'}]]></conditionExpression>
+    </sequenceFlow>
+        
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_DataMappingApprovalProcess">
+    <bpmndi:BPMNPlane bpmnElement="DataMappingApprovalProcess" id="BPMNPlane_DataMappingApprovalProcess">
+      <bpmndi:BPMNShape bpmnElement="startEvent" id="BPMNShape_startEvent">
+        <omgdc:Bounds height="30.0" width="30.0" x="135.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="submitDataMappingTask" id="BPMNShape_submitDataMappingTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="270.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approveDataMappingTask" id="BPMNShape_approveDataMappingTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="465.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approveGateway" id="BPMNShape_approveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="687.0" y="95.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEvent" id="BPMNShape_endEvent">
+        <omgdc:Bounds height="28.0" width="28.0" x="825.0" y="101.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="165.0" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="370.0" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="465.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="565.0" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="687.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="rejectFlow" id="BPMNEdge_rejectFlow">
+        <omgdi:waypoint x="707.5" y="95.5"></omgdi:waypoint>
+        <omgdi:waypoint x="707.5" y="21.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="21.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="75.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="approveFlow" id="BPMNEdge_approveFlow">
+        <omgdi:waypoint x="726.5725190839695" y="115.42748091603053"></omgdi:waypoint>
+        <omgdi:waypoint x="825.000101200308" y="115.05323155437146"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
