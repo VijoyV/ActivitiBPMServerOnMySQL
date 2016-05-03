@@ -92,7 +92,7 @@ JSon Response (If failed)
     
 }
 
-### 4.  To create and start a DataMapping process instance
+### 4. To create and start a DataMapping process instance
 
 >> POST http://localhost:9090/createDataMapping
 
@@ -112,14 +112,20 @@ Json Response
 
 
 **NOTE:**
+
 1. By this REST Call, the process will be started and first task will be submitted as well. And the state move to 'Approve' state
+
 2. **dataMappingId** is **client system generated** and passed in as a json parameter. Activiti stores it as a process variable and one could get this id back from Activiti in subsequent requests.
+
 
 ### 5. To verify some status/states/diagrams from running Activiti Engine.
 
 >> GET http://localhost:9090/runtime/tasks
+
 >> GET http://localhost:9090/runtime/process-instances/{id}/diagram
+
 >> GET http://localhost:9090/runtime/process-instances/{id}/variables
+
 >> GET http://localhost:9090/runtime/tasks/{id}/variables
 
 
@@ -138,7 +144,7 @@ Json Request
 
 Json Response
 
--- See it Your Self :-) --
+__ See it Your Self :-) __
 
 
 **NOTE:**
@@ -169,18 +175,20 @@ Json Request
 
 Json Response
 
--- See it Your Self :-) --
+__ See it Your Self :-) __
 
 **NOTE:**
 
-1. Only Claimed task can be submitted.
+1. Only **Claimed** task can be submitted.
 
-2. You need to pass in required additional parameters (here, approved, userComment) to complete or restart the process.
+2. You need to pass in **required additional parameters** (here, approved, userComment) to complete or restart the process.
 
 
 ### 8. To retrieve User Inbox
 
 >> http://localhost:8080/getUserInbox
+
+Json Request
 
 {
 
@@ -189,7 +197,6 @@ Json Response
 }
 
 
-
 Json Response
 
--- See it Your Self :-) --
+__ See it Your Self :-) __
