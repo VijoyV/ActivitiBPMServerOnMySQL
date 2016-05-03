@@ -1,62 +1,21 @@
-# ActivitiEmbeddedEngineAndREST
-! Activiti Embedded Engine and REST Access:
+# ActivitiBPMServerOnMySQL
 
-This is the experimental code which customize the spring-boot-activiti example ( https://dzone.com/articles/getting-started-activiti-and ) 
-for Hiring Process to make work for any process deployed to the Activiti BPM Engine and expose key methods as REST APIs.
+This is a Activiti Spring Boot Application with embedded Tomcat Servlet Container talking to MySQL DB
 
-At his point of time, you can just download this project into Eclipse or Spring STS IDE as a spring boot application. I believe, the POM will indicate it as a Spring Boot application and downlaod all dependencies. 
+Pre-requisite
 
-Just download it from git repository and import to STS as maven project (or convert it as a maven
-project). Run as spring boot application.
- 
-1. That will create an Actviti BPM Engine with In-Memory H2 Database.
-2. Creates a user called admin/admin
-3. deploy the embedded bpmn 2.0 complaint xml file (Here it is a leave application process).
+Should have a MySQL Server running with an empty Database 'activiti'. This should be able to accessed by a user called 'activiti' and password 'acti$viti'.
 
-Then open a REST Client like Postman and execute the following commands to see the process is getting executed task by task.
+Download the source code to Eclipse or Spring Tool Suite (STS) as a maven project or add a maven behaviour. 
 
-GET	http://localhost:8080/mappings (Gives all REST EndPoints)
+Then build so that all required dependencies will be downloaded.
 
-//1. Get the deployed process definitions from the Activiti Engine
+You may build this as satndalone jar file and run on any machine as a Standalone Application. Assume that the above mentioned MySQL server and database is up and running. Tomcat Listening Http Port is 9090
 
-GET http://localhost:8080/repository/process-definitions
+REST Endpoints
 
-//2. Verify it with obtaining a diagram
+Your client applications may interact with this Activiti BPM Server (running stand-alone server)  via REST. The following custom REST URLs are developed with defined input/output. 
 
-GET http://localhost:8080/repository/process-definitions/LeaveApplicationProcess:1:7/image
 
-//3. Kick Start the Process 'Leave Application Process' with the following POST statement and JSON Request Body (Parameters).
 
-POST http://localhost:8080/LeaveApplicationProcess
 
-JSON Request Body
-
-{
-
-    "name"          : "Vijoy Vallachira", 
-    "email"         : "vijoye@gmail.com", 
-    "noOfDays"      : "4", 
-    "startDate"     : "2016-04-07"
-
-}
-
-// 4. Locate and Execute Task 'Apply Leave'
-
-POST http://localhost:8080/ApplyLeave
-
-JSON Request Body
-{
-
-    "processInstanceId" : "8", 
-    "loanApplicantId" :   "1", 
-    "taskDefinitionKey" : "applyLeaveTask"
-
-}
-
-// 5. See the current Stage of the Process.
-
-GET http://localhost:8080/runtime/process-instances/8
-
-GET http://localhost:8080/runtime/process-instances/8/diagram
-
-NOTE: This is still a work in progress.
