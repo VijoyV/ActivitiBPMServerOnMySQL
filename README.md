@@ -14,13 +14,109 @@ You may build this as satndalone jar file and run on any machine as a Standalone
 
 <h2> REST Endpoints </h2>
 
-Your client applications may interact with this Activiti BPM Server (running stand-alone server)  via REST. The following custom REST URLs are developed with defined input/output. 
+Your client applications (or REST Plug-Ins like POSTMAN ) may interact with this Activiti BPM Server (running stand-alone server) via REST. 
+The following custom and activiti supplied REST URLs are explained below to build a client application by you. 
 
-<h3> To See the deployed process definitions - The Blue Print</h3>
+<h3> 1. To See the deployed process definitions - The Blue Print</h3>
 
 >>
 GET http://localhost:9090/repository/process-definitions
-
+>>
 GET http://localhost:9090/repository/process-definitions?key=DataMappingApprovalProcess
-<<
+
+>> To Create a User In Group 
+POST http://localhost:8080/createUserInGroup
+
+JSON Body
+
+{
+    "userId" : "vijoyv", 
+    "password" : "vij$123", 
+    "firstName" : "Vijoy", 
+    "lastName" : "Vallachira",
+    "email" : "vijoye@gmail.com", 
+    "groupId"    : "requester"
+}
+
+Another One
+
+{
+    "userId" : "hariram", 
+    "password" : "hari$ram", 
+    "firstName" : "Hari Ram", 
+    "lastName" : "A",
+    "email" : "talk2hari@gmail.com", 
+    "groupId"    : "approver"
+}
+
+RESPONSE
+
+{
+  "status": "success"
+}
+
+>> To Verify Created User OR Athenticate User
+
+POST http://localhost:8080/authenticateUser
+
+JSON Body
+
+{
+    "userId" : "vijoyv", 
+    "password" : "vij$123"
+}
+
+
+RESPONSE
+
+If Success
+
+{
+  "userId": "vijoyv",
+  "groupId": "requester"
+}
+
+If failed (To Be Improved)
+
+{
+  "userId": "vijoyv",
+  "groupId": "NoGroup"
+}
+
+>>  To Start/Create the Data Mapping Process
+
+POST http://localhost:8080/createDataMapping
+
+JSON REQUEST
+
+{
+    "userId" : "vijoyv", 
+    "processName" : "DataMappingApprovalProcess", 
+    "dataMappingId" : "100100"
+}
+
+RESPONSE <YetToBeProgrammed>> NOTE: The process will be started and first task will be submitted as well. And the state move to 'Approve'
+
+>> See some status
+GET http://localhost:8080/runtime/tasks
+GET http://localhost:8080/runtime/process-instances/11/diagram
+GET http://localhost:8080/runtime/process-instances/11/variables
+GET http://localhost:8080/runtime/tasks/19/variables
+
+
+
+>> To Claim a Task [Claiming will come from InBox List with Actual Task ID]
+
+POST http://localhost:8080/claimTask
+
+JSON REQUEST
+
+{
+    "userId" : "hariram",   --> As Approver
+    "taskId" : "7509"       --> Will change
+}
+
+>> To Submit a Claimed Task
+
+POST	
 
