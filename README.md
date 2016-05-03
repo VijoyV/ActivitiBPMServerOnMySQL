@@ -8,16 +8,17 @@ Should have a MySQL Server 5.6 running with an empty Database 'activiti'. This s
 
 Download the source code to Eclipse or Spring Tool Suite (STS) as a maven project or add a maven behaviour. Then build so that all required dependencies will be downloaded.
 
-You may build this as satndalone jar file and run on any machine with Jaava 8 JRE installed, as a Standalone Application. Assume that the above mentioned MySQL server and database is up and running. Tomcat listening Http Port is 9090. 
+You may build this as jar file and run as a standalone application on any machine with Java 8 JRE installed. Assume that the above mentioned MySQL server and database are also up and running. Tomcat would be listening on Http Port 9090. 
+
+For first time run, you have to uncomment the following bean: **InitializingBean usersAndGroupsInitializer** in the java program **ActivitiBpmEngineOnMySQL.java**. This is to create the seed users and groups.
 
 ## REST Endpoints
 
-Your client applications (or REST Plug-Ins like POSTMAN ) may interact with this Activiti BPM Server (running stand-alone server) via REST. Use admin/admin as request sending client userid/password with Base64 Authentication in Http Header. 
+Your client applications (or REST Plug-Ins/Clients like POSTMAN ) may interact with this Activiti BPM Server (running stand-alone mode) via REST. Use admin/admin as request sending client as userid/password with Base64 Authentication enabled in Http Header. 
+
 The following custom and activiti supplied REST URLs are explained below to build a client application by you. 
 
-
 ### 1. To see the deployed process definitions - The Blue Print
-
 
 >> GET http://localhost:9090/repository/process-definitions
 
@@ -40,7 +41,6 @@ Json Request
     "groupId"    : "requester"
     
 }
-
 
 Another One
 
@@ -92,7 +92,7 @@ JSon Response (If failed)
     
 }
 
-### 4. To create and start a DataMapping process instance
+### 4. To create and start a DataMapping process instance.
 
 >> POST http://localhost:9090/createDataMapping
 
@@ -108,14 +108,14 @@ Json Request
 
 Json Response
 
--- See it Your Self :-) --
+See it Yourself :-)
 
 
 **NOTE:**
 
-1. By this REST Call, the process will be started and first task will be submitted as well. And the state move to 'Approve' state
+1. By this REST Call, the process will be started and the first task will be submitted as well. And the state moves to 'Approve' task which can be claimed by an approver.
 
-2. **dataMappingId** is **client system generated** and passed in as a json parameter. Activiti stores it as a process variable and one could get this id back from Activiti in subsequent requests.
+2. **dataMappingId** is **client system generated** and passed in as a json parameter. Activiti stores it as a process variable and one could get this id back from Activiti in subsequent requests. This can be used as a correlation id to connect transactions/events from client and activiti server applications.
 
 
 ### 5. To verify some status/states/diagrams from running Activiti Engine.
@@ -144,7 +144,7 @@ Json Request
 
 Json Response
 
-__ See it Your Self :-) __
+See it Yourself :-)
 
 
 **NOTE:**
@@ -160,7 +160,6 @@ __ See it Your Self :-) __
 
 >> POST http://localhost:9090/submitTask
 
-
 Json Request
 
 {
@@ -175,7 +174,7 @@ Json Request
 
 Json Response
 
-__ See it Your Self :-) __
+See it Yourself :-)
 
 **NOTE:**
 
@@ -199,4 +198,4 @@ Json Request
 
 Json Response
 
-__ See it Your Self :-) __
+See it Yourself :-)
