@@ -74,7 +74,7 @@ Json Request
     
 }
 
-JSon Response (If Success)
+JSon Response (If success)
 
 {
 
@@ -96,7 +96,7 @@ JSon Response (If failed)
 
 >> POST http://localhost:9090/createDataMapping
 
-JSON REQUEST
+Json Request
 
 {
 
@@ -105,6 +105,11 @@ JSON REQUEST
     "dataMappingId" : "100100"
     
 }
+
+Json Response
+
+-- See it Your Self :-) --
+
 
 **NOTE:**
 1. By this REST Call, the process will be started and first task will be submitted as well. And the state move to 'Approve' state
@@ -131,13 +136,21 @@ Json Request
     "taskId" : "7509"       
 }
 
+Json Response
+
+-- See it Your Self :-) --
+
+
 **NOTE:**
-1. Claiming will come from User InBox List and with Actual Task ID
+
+1. Claiming will come from User InBox List and with Actual Task ID.
+
 2. The client system must have pulled a user inbox from activiti soon after he/she logs in.
+
 3. Claiming is required to lock the activiti task with the caiming user and no other user inbox will display that items who had subsequently logged in or refreshed his/her list.
 
 
->> 7. To submit a claimed Task
+### 7. To submit a claimed Task
 
 >> POST http://localhost:9090/submitTask
 
@@ -154,8 +167,29 @@ Json Request
     
 }
 
+Json Response
+
+-- See it Your Self :-) --
+
 **NOTE:**
+
 1. Only Claimed task can be submitted.
+
 2. You need to pass in required additional parameters (here, approved, userComment) to complete or restart the process.
 
 
+### 8. To retrieve User Inbox
+
+>> http://localhost:8080/getUserInbox
+
+{
+
+    "userId" : "hariram"
+    
+}
+
+
+
+Json Response
+
+-- See it Your Self :-) --
