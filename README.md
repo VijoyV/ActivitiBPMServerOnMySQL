@@ -21,14 +21,14 @@ The following custom and activiti supplied REST URLs are explained below to buil
 ### 1. To See the deployed process definitions - The Blue Print
 
 
-GET http://localhost:9090/repository/process-definitions
+>> GET http://localhost:9090/repository/process-definitions
 
-GET http://localhost:9090/repository/process-definitions?key=DataMappingApprovalProcess
+>> GET http://localhost:9090/repository/process-definitions?key=DataMappingApprovalProcess
 
 
-### 2. To create a User in a Group 
+### 2. To create a user in a group 
 
-POST http://localhost:9090/createUserInGroup
+>> POST http://localhost:9090/createUserInGroup
 
 Json Request
 
@@ -66,7 +66,7 @@ Json Response
 
 ### 3. To verify created user OR to athenticate a user.
 
-POST http://localhost:9090/authenticateUser
+>> POST http://localhost:9090/authenticateUser
 
 Json Request
 {
@@ -94,9 +94,9 @@ JSon Response (If authentication failed)
     
 }
 
-### 4.  To Start/Create the Data Mapping Process
+### 4.  To create and start a DataMapping process instance
 
-POST http://localhost:9090/createDataMapping
+>> POST http://localhost:9090/createDataMapping
 
 JSON REQUEST
 
@@ -108,29 +108,46 @@ JSON REQUEST
     
 }
 
-NOTE: 
-By this REST Call, the process will be started and first task will be submitted as well. And the state move to 'Approve'
+**NOTE:**
+1. By this REST Call, the process will be started and first task will be submitted as well. And the state move to 'Approve' state
+2. ** dataMappingId** is ** client system generated ** and passed in as a json parameter. Activiti stores it as a process variable and one could get this id back from Activiti in subsequent requests.
 
-### 4. See some status
-GET http://localhost:8080/runtime/tasks
-GET http://localhost:8080/runtime/process-instances/11/diagram
-GET http://localhost:8080/runtime/process-instances/11/variables
-GET http://localhost:8080/runtime/tasks/19/variables
+### 5. To verify some some status/state/diagrams from Activiti Engine.
+
+>> GET http://localhost:9090/runtime/tasks
+>> GET http://localhost:9090/runtime/process-instances/{id}/diagram
+>> GET http://localhost:9090/runtime/process-instances/{id}/variables
+>> GET http://localhost:9090/runtime/tasks/{id}/variables
 
 
+### 6. To Claim a Task 
 
->> To Claim a Task [Claiming will come from InBox List with Actual Task ID]
+>> POST http://localhost:9090/claimTask
 
-POST http://localhost:8080/claimTask
-
-JSON REQUEST
+Json Request
 
 {
     "userId" : "hariram",   --> As Approver
-    "taskId" : "7509"       --> Will change
+    "taskId" : "7509"       --> Will change as it is used from user inbox.
 }
 
->> To Submit a Claimed Task
+**NOTE:**
+1. Claiming will come from User InBox List and with Actual Task ID
+2. The client system must have pulled a user inbox from activiti soon after he/she logs in.
+3. Claiming is required to lock the activiti task with the caiming user and no other user inbox will display that items who had subsequently logged in or refreshed his/her list.
 
-POST	
+>> 7. To Submit a Claimed Task
+
+>> POST http://localhost:9090/submitTask
+
+Json Request
+
+{
+    "userId" : "hariram",   --> As Approver
+    "taskId" : "7509"       --> Will change as it is used from user inbox.
+}
+
+**NOTE:**
+1. Only Claimed task can be submitted.
+2. 
 
