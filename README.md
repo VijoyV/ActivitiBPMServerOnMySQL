@@ -14,8 +14,9 @@ You may build this as satndalone jar file and run on any machine as a Standalone
 
 ## REST Endpoints
 
-Your client applications (or REST Plug-Ins like POSTMAN ) may interact with this Activiti BPM Server (running stand-alone server) via REST. 
+Your client applications (or REST Plug-Ins like POSTMAN ) may interact with this Activiti BPM Server (running stand-alone server) via REST. Use admin/admin as request sending client userid/password with Base64 Authentication in Http Header. 
 The following custom and activiti supplied REST URLs are explained below to build a client application by you. 
+
 
 ### 1. To See the deployed process definitions - The Blue Print
 
@@ -25,12 +26,11 @@ GET http://localhost:9090/repository/process-definitions
 GET http://localhost:9090/repository/process-definitions?key=DataMappingApprovalProcess
 
 
-### 2. To Create a User In Group 
-
+### 2. To create a User in a Group 
 
 POST http://localhost:9090/createUserInGroup
 
-JSON Body
+Json Request
 
 {
 
@@ -57,17 +57,18 @@ Another One
 
 }
 
-RESPONSE
+Json Response
 
 {
-  "status": "success"
+
+    "status": "success"
 }
 
-### 3. To Verify Created User OR Athenticate User
+### 3. To verify created user OR to athenticate a user.
 
-POST http://localhost:8080/authenticateUser
+POST http://localhost:9090/authenticateUser
 
-JSON Body
+Json Request
 {
 
     "userId" : "vijoyv", 
@@ -75,9 +76,7 @@ JSON Body
     
 }
 
-RESPONSE
-
-If Success
+JSon Response (If Success)
 
 {
 
@@ -86,8 +85,7 @@ If Success
   
 }
 
-
-If failed (To Be Improved)
+JSon Response (If authentication failed)
 
 { 
 
@@ -98,7 +96,7 @@ If failed (To Be Improved)
 
 ### 4.  To Start/Create the Data Mapping Process
 
-POST http://localhost:8080/createDataMapping
+POST http://localhost:9090/createDataMapping
 
 JSON REQUEST
 
@@ -111,9 +109,9 @@ JSON REQUEST
 }
 
 NOTE: 
-The process will be started and first task will be submitted as well. And the state move to 'Approve'
+By this REST Call, the process will be started and first task will be submitted as well. And the state move to 'Approve'
 
->> See some status
+### 4. See some status
 GET http://localhost:8080/runtime/tasks
 GET http://localhost:8080/runtime/process-instances/11/diagram
 GET http://localhost:8080/runtime/process-instances/11/variables
