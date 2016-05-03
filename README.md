@@ -149,9 +149,9 @@ See it Yourself :-)
 
 **NOTE:**
 
-1. Claiming will come from User InBox List and with Actual Task ID.
+1. Claiming will come from User Inbox List with a selected TaskId.
 
-2. The client system must have pulled a user inbox from activiti soon after he/she logs in.
+2. The client system must have pulled a user inbox list (a list of claimable tasks) from activiti soon after he/she logs in.
 
 3. Claiming is required to lock the activiti task with the caiming user and no other user inbox will display that items who had subsequently logged in or refreshed his/her list.
 
@@ -185,7 +185,7 @@ See it Yourself :-)
 
 ### 8. To retrieve User Inbox
 
->> http://localhost:8080/getUserInbox
+>> http://localhost:9090/getUserInbox
 
 Json Request
 
