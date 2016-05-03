@@ -16,10 +16,11 @@ You may build this as satndalone jar file and run on any machine as a Standalone
 
 Your client applications may interact with this Activiti BPM Server (running stand-alone server)  via REST. The following custom REST URLs are developed with defined input/output. 
 
-<h3> >>  To See the deployed process definitions - The Blue Print</h3>
+<h3> To See the deployed process definitions - The Blue Print</h3>
 
->>  To See the deployed process definitions - The Blue Print
+>>
 GET http://localhost:9090/repository/process-definitions
-GET http://localhost:9090/repository/process-definitions?key=DataMappingApprovalProcess
 
+GET http://localhost:9090/repository/process-definitions?key=DataMappingApprovalProcess
+<<
 
