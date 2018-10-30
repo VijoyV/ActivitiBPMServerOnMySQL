@@ -1,0 +1,60 @@
+//Employee Master
+
+entity EmployeeMaster {
+  empId String required unique,
+  firstName String required, 
+  lastName String required, 
+  middleName String, 
+  employeeType String required,
+  salaryPaymentFrequency String required,
+  dateOfBirth LocalDate required, 
+  gender String required, 
+  dateOfJoin LocalDate required, 
+  jobBand String required,
+  designation String required, 
+  corporateTitle String,
+  dateOfExit LocalDate required, 
+  primaryContactNo String required, 
+  secondaryContactNo String,
+  nationality String, 
+  spouseId String,
+  managerId String,
+  adminId String, 
+  department String,
+  businessUnit String, 
+  status String, 
+  createdOn LocalDate required, 
+  createdBy String, 
+  lastUpdatedOn LocalDate,
+  lastUpdatedBy String
+}
+
+//Payroll Application User
+
+entity ApplicationUser
+{
+  userId String required unique, 
+  fullName String,
+  password String,
+  email String,
+  emailValidatedOn LocalDate, 
+  mobileNumber String, 
+  mobileNumberValidatedOn LocalDate,
+  applicationRole String, 
+  maxAllowedLoginErrorCtr Integer,  
+  currentLoginErrorCtr Integer, 
+  status String, 
+  createdOn LocalDate required, 
+  createdBy String, 
+  lastUpdatedOn LocalDate,
+  lastUpdatedBy String
+}
+
+/**
+ * One to one relationship.
+ */
+relationship OneToOne {
+  EmployeeMaster to ApplicationUser
+}
+
+
